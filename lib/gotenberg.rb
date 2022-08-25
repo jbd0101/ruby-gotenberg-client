@@ -2,7 +2,6 @@
 require 'net/http'
 require 'uri'
 require 'faraday'
-require 'faraday/net_http'
 require 'faraday/multipart'
 
 Faraday.default_adapter = :net_http
@@ -67,7 +66,7 @@ module Gotenberg
     response = conn.post(url, payload)
     ind_html.close
     ind_html.unlink
-      File.write("test.pdf",response.body)
+      File.write("test.pdf",response.body,encoding: 'ascii-8bit')
 
   end
 
