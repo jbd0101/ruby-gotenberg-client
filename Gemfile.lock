@@ -1,7 +1,9 @@
 PATH
   remote: .
   specs:
-    gotenberg (0.1.0)
+    gotenberg-client (0.1.1.4)
+      faraday (~> 2.5.2)
+      faraday-multipart (~> 1.0.4)
 
 GEM
   remote: https://rubygems.org/
@@ -34,9 +36,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  faraday
-  faraday-multipart
-  gotenberg!
+  gotenberg-client!
   rake (~> 13.0)
   rspec (~> 3.0)
 
