@@ -8,12 +8,15 @@ this gem is young and needs a lot of updates and improvements. (work in progress
 ## install
 First download and run gotenberg
 
-  $ docker run --rm -p 3000:3000 gotenberg/gotenberg:7
-
+```
+docker run --rm -p 3000:3000 gotenberg/gotenberg:7
+```
 
 install gotenberg-client gem
 
-  $ gem install gotenberg-client
+```
+gem install gotenberg-client
+```
 
 or add gotenberg-client to your gemfile
 
