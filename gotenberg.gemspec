@@ -3,22 +3,22 @@
 require_relative "lib/gotenberg/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "gotenberg"
+  spec.name          = "gotenberg-client"
   spec.version       = Gotenberg::VERSION
   spec.authors       = ["jean-christophe bauduin"]
-  spec.email         = ["jean-christophe.bauduin@temeoo.fr"]
+  spec.email         = ["maildejc@hotmail.be"]
 
   spec.summary       = "simple gotenberg client for ruby"
-  spec.description   = "simple gotenberg client for ruby"
-  spec.homepage      = "https://github.com/jbd0101"
+  spec.description   = "make the creation of pdf easy in ruby"
+  spec.homepage      = "https://github.com/jbd0101/ruby-gotenberg-client"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.4.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/jbd0101"
-  spec.metadata["changelog_uri"] = "https://github.com/jbd0101"
+  spec.metadata["source_code_uri"] = "https://github.com/jbd0101/ruby-gotenberg-client"
+  spec.metadata["changelog_uri"] = "https://github.com/jbd0101/ruby-gotenberg-client"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
