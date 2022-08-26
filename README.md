@@ -19,7 +19,7 @@ or add gotenberg-client to your gemfile
 you will probably use this gem in order to generate pdf in a ruby on rails background task / ruby file. Therefore, this gem do not (yet) integrate any Ruby on Rails tools.
 
 ```ruby
-require "gotenberg-client"
+require "gotenberg"
 
 api_endpoint = "http://localhost:3000" # change it with your specific port and address.
 gb = Gotenberg::Client.new(api_endpoint)
@@ -38,7 +38,7 @@ output_pdf.unlink
 ```
 
 if you want to use rails views, the easiest way is to user "render_to_string" from `ActionController::Base`.
-Let's image that you have a /app/views/test.html.erb in your project that use @customer variable.
+Let's imagine that you have a /app/views/test.html.erb in your project that use @customer variable.
 
 ```ruby
 gb = Gotenberg::Client.new(api_endpoint)
