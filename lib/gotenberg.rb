@@ -12,6 +12,14 @@ require_relative "gotenberg/version"
 module Gotenberg
   class Error < StandardError; end
   # Your code goes here...
+
+  class Assets
+    def self.include_css(file)
+      raise "Not in Rails project" unless !Rails.nil?
+      abs_path = Rails.root.join('public', 'stylesheets',file)
+      return "<style type='text/css'>#{File.read(abs_path)}</style>".html_safe
+    end
+  end
   class Client
     def initialize(api_url)
       @api_url = api_url
@@ -42,13 +50,17 @@ module Gotenberg
           )
       }
       url= "#{@api_url}/forms/chromium/convert/html"
+    begin
+      conn = Faraday.new(url) do |f|
+        f.request :multipart, flat_encode: true
+        f.adapter :net_http
+      end
+      response = conn.post(url, payload)
 
-    conn = Faraday.new(url) do |f|
-      f.request :multipart, flat_encode: true
-      f.adapter :net_http
+    rescue StandardError => e
+      response=""
     end
 
-    response = conn.post(url, payload)
     ind_html.close
     ind_html.unlink
     output.write(response.body.force_encoding("utf-8"))
