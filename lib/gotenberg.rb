@@ -4,8 +4,6 @@ require 'uri'
 require 'faraday'
 require 'faraday/multipart'
 
-Faraday.default_adapter = :net_http
-
 require 'tempfile'
 require_relative "gotenberg/version"
 
