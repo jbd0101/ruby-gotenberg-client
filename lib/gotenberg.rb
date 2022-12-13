@@ -38,16 +38,12 @@ module Gotenberg
   def html(render,output)
       return false unless self.up?
 
-
-      ind_html = Tempfile.new('index.html')
-      ind_html.write(render)
-      ind_html.rewind
       payload = {
         "index.html": Faraday::Multipart::FilePart.new(
-            File.open(ind_html),
-            'text/html',
-            "index.html"
-          )
+          StringIO.new(render),
+          'text/html',
+          "index.html"
+        )
       }
       url= "#{@api_url}/forms/chromium/convert/html"
     begin
@@ -61,8 +57,6 @@ module Gotenberg
       response=""
     end
 
-    ind_html.close
-    ind_html.unlink
     output.write(response.body.force_encoding("utf-8"))
     return true
 
