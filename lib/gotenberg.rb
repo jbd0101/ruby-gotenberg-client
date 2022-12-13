@@ -9,32 +9,28 @@ require_relative "gotenberg/version"
 
 module Gotenberg
   class Error < StandardError; end
-  # Your code goes here...
 
   class Assets
     def self.include_css(file)
-      raise "Not in Rails project" unless !Rails.nil?
-      abs_path = Rails.root.join('public', 'stylesheets',file)
+      raise "Not in Rails project" unless defined?(Rails)
+
+      abs_path = Rails.root.join('public', 'stylesheets', file)
       return "<style type='text/css'>#{File.read(abs_path)}</style>".html_safe
     end
   end
+
   class Client
     def initialize(api_url)
       @api_url = api_url
     end
 
-=begin
-  write the pdf file in output
-  pre:
-    render, string, html that needs to be converted
-    output, output file
-  post:
-    pdf in the output file
-    true if everything ok
-
-=end
-  def html(render,output)
-      return false unless self.up?
+    # Write the PDF of given HTML in output file.
+    #
+    # @param render [String] HTML to convert
+    # @param output [File, Pathname, #write] Output file
+    # @return true if everything OK
+    def html(render, output)
+      return false unless up?
 
       payload = {
         "index.html": Faraday::Multipart::FilePart.new(
@@ -43,39 +39,36 @@ module Gotenberg
           "index.html"
         )
       }
-      url= "#{@api_url}/forms/chromium/convert/html"
+      url = "#{@api_url}/forms/chromium/convert/html"
     begin
       conn = Faraday.new(url) do |f|
         f.request :multipart, flat_encode: true
         f.adapter :net_http
       end
       response = conn.post(url, payload)
-
-    rescue StandardError => e
-      response=""
+    rescue
+      response = ""
     end
 
     output.write(response.body.force_encoding("utf-8"))
-    return true
 
+    true
   end
 
     def up?
-      begin
-        uri = URI.parse("#{@api_url}/health")
-        request = Net::HTTP::Get.new(uri)
-        req_options = {use_ssl: uri.scheme == "https",}
+      uri = URI.parse("#{@api_url}/health")
+      request = Net::HTTP::Get.new(uri)
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
 
-        response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-          http.request(request)
-        end
-
-        if response.code == "200" && JSON.parse(response.body)["status"]=="up"
-          return true
-        end
-      rescue StandardError => e
-        return false
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
       end
+
+      response.code == "200" && JSON.parse(response.body)["status"] == "up"
+    rescue
+      false
     end
   end
 end
