@@ -29,16 +29,19 @@ module Gotenberg
     # @param render [String] HTML to convert
     # @param output [File, Pathname, #write] Output file
     # @return true if everything OK
-    def html(render, output)
+    def html(render, output, **kwargs)
       return false unless up?
 
-      payload = {
+      content = {
         "index.html": Faraday::Multipart::FilePart.new(
           StringIO.new(render),
           'text/html',
           "index.html"
-        )
+        ),
       }
+
+      payload = kwargs.merge(content)
+
       url = "#{@api_url}/forms/chromium/convert/html"
     begin
       conn = Faraday.new(url) do |f|
