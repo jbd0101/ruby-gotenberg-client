@@ -1,20 +1,20 @@
 PATH
   remote: .
   specs:
-    gotenberg-client (0.1.1.4)
-      faraday (~> 2.5.2)
-      faraday-multipart (~> 1.0.4)
+    gotenberg-client (0.1.1.9)
+      faraday
+      faraday-multipart
 
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.5.0)
-    faraday (2.5.2)
+    faraday (2.7.2)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
-    faraday-net_http (3.0.0)
+    faraday-net_http (3.0.2)
     multipart-post (2.2.3)
     rake (13.0.6)
     rspec (3.11.0)
@@ -41,4 +41,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   2.2.19
+   2.3.26
